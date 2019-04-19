@@ -1,23 +1,25 @@
 #include <stdio.h>
-#include <time.h>
 
-void getSeconds(unsigned long *ptr);
+int max(int x, int y)
+{
+  return x > y ? x : y;
+}
 
 int main() 
 {
-  unsigned long sec;
+  /*定义func_ptr为函数指针*/
+  int (*func_ptr)(int, int);
+  func_ptr = max; //or func_ptr = &max;
 
-  getSeconds(&sec);
-
-  /* 输出实际值 */
-  printf("Number of seconds: %ld\n", sec );
-
-  return 0;
-}
-
-void getSeconds(unsigned long *ptr)
-{
-   /* 获取当前的秒数 */
-   *ptr = time( NULL );
-   return;
+  int a, b, c, d;
+ 
+    printf("请输入三个数字:");
+    scanf("%d %d %d", & a, & b, & c);
+ 
+    /* 与直接调用函数等价，d = max(max(a, b), c) */
+    d = func_ptr(func_ptr(a, b), c); 
+ 
+    printf("最大的数字是: %d\n", d);
+ 
+    return 0;
 }
